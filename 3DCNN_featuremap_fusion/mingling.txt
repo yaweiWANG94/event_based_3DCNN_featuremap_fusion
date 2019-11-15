@@ -1,0 +1,39 @@
+#rgb
+
+#train20:
+--dataset kaist_train-all20-rgb --modal rgb --net vgg16 --bs 4 --nw 8 --cuda --use_tfb --r True --checkepoch 15 --checkpoint 553
+#train02
+--dataset kaist_train-all02-rgb --modal rgb --net vgg16 --bs 4 --nw 8 --cuda --use_tfb --r True --checkepoch 15 --checkpoint 553
+
+
+
+
+#test train20
+--dataset kaist_test-all20-rgb --model_dir kaist_train-all02-rgb --net vgg16 --checksession 1 --checkepoch 5 --checkpoint 5533 --cuda  --vis
+
+#test trian02
+-dataset kaist_test-all20-rgb --model_dir kaist_train-all02-rgb --net vgg16 --checksession 1 --checkepoch 5 --checkpoint 5533 --cuda  --vis
+
+
+
+#fusion
+
+#train20
+--dataset kaist_train-all20-fusion --modal fusion --net vgg16f --bs 4 --nw 8 --cuda --use_tfb
+
+#train02
+--dataset kaist_train-all02-fusion --modal fusion --net vgg16f --bs 4 --nw 8 --cuda --use_tfb --r True --checkepoch 5 --checkpoint 5533
+
+
+#test
+#train20
+--dataset kaist_test-all20-fusion --model_dir kaist_train-all20-fusion --modal fusion --net vgg16f --checksession 1 --checkepoch 15 --checkpoint 553 --cuda  --vis
+
+#train02 halfway
+--dataset kaist_test-all20-fusion --model_dir kaist_train-all02-fusion --modal fusion --net vgg16f --checksession 1 --checkepoch 14 --checkpoint 18575 --cuda  --vis
+
+
+
+#train
+--dataset kaist_test-all20-fusion --model_dir kaist_train-all02-fusion --modal fusion --net vgg16f --checksession 1 --checkepoch 5 --checkpoint 5533 --cuda  --vis
+
