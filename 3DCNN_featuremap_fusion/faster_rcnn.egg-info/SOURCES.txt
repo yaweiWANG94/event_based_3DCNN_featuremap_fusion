@@ -1,0 +1,8 @@
+README.md
+/home/nj/rgb_ir_ped_detection-master/pytorch_fasterrcnn-pytorch-1.0/lib/model/csrc/vision.cpp
+/home/nj/rgb_ir_ped_detection-master/pytorch_fasterrcnn-pytorch-1.0/lib/model/csrc/cpu/ROIAlign_cpu.cpp
+/home/nj/rgb_ir_ped_detection-master/pytorch_fasterrcnn-pytorch-1.0/lib/model/csrc/cpu/nms_cpu.cpp
+faster_rcnn.egg-info/PKG-INFO
+faster_rcnn.egg-info/SOURCES.txt
+faster_rcnn.egg-info/dependency_links.txt
+faster_rcnn.egg-info/top_level.txt

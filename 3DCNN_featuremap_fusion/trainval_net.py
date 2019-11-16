@@ -708,7 +708,7 @@ if __name__ == '__main__':
     # torch.backends.cudnn.benchmark = True
     if torch.cuda.is_available() and not args.cuda:
         print("WARNING: You have a CUDA device, so you should probably run with --cuda")
-    # 加载数据, 生成roidb数据结构
+    
     cfg.TRAIN.USE_FLIPPED = True
     cfg.USE_GPU_NMS = args.cuda
 
@@ -756,7 +756,7 @@ if __name__ == '__main__':
                                              sampler=sampler_batch, num_workers=args.num_workers)
 
 
-    # 选择模态, 开始训练
+    # 选择模式, 开始训练
     if args.modal == "rgb":
         training_rgb()
     if args.modal == "thermal":

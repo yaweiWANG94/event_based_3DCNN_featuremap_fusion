@@ -27,7 +27,7 @@ class vgg16f(_fasterRCNNF):
     self.dout_base_model = 512
     self.pretrained = pretrained
     self.class_agnostic = class_agnostic
-    #单双通道模态
+    #融合模式
     self.modal = modal
     self.fusion_mode = fusion_mode
 
@@ -36,7 +36,7 @@ class vgg16f(_fasterRCNNF):
 
   def _init_modules(self):
     #vgg = models.vgg16()
-    #使用我自己的vgg16
+    #融合的VGG
     vgg = make_vgg16()
     if self.pretrained:
         print("Loading pretrained weights from %s" %(self.model_path))
@@ -71,12 +71,12 @@ class vgg16f(_fasterRCNNF):
 
   def _init_modules_halfway(self):
       # vgg = models.vgg16()
-      # 使用我自己的vgg16
+      
 
       #conv4前
       vgg = make_vgg16_2C4()
 
-      #1*1卷积
+      #3DCNN特征图融合
       self.NIN = self.nin(in_channel=1, out_channel=1)
 
       #融合后的部分
@@ -92,13 +92,13 @@ class vgg16f(_fasterRCNNF):
 
 
       # not using the last maxpool layer
-      # half fusion 前半部分,融合前
+      # half fusion融合前
       self.RCNN_base_half = nn.Sequential(*list(vgg.features._modules.values()))
 
-      #half fusion 后半部分,融合后
+      #half fusion 融合后
       self.RCNN_base_fusion = nn.Sequential(*list(vgg_fusion.features._modules.values()))
 
-      #分类部分，暂不知道用在哪
+     
       vgg.classifier = nn.Sequential(*list(vgg.classifier._modules.values())[:-1])
 
       # Fix the layers before conv3:
@@ -126,7 +126,7 @@ class vgg16f(_fasterRCNNF):
     return fc7
 
   def nin(self,in_channel, out_channel):
-
+  #3DCNN 融合部分，2DCNN融合对比
       con3d1 = nn.Conv3d(in_channel,1,kernel_size=(3,3,3),stride=1,padding=1)
       con3 = nn.Conv3d(1,1,kernel_size=(3,3,3),stride=(2,1,1),padding=1) 
       layers = [con3d1, con3, nn.ReLU(inplace=True)]
